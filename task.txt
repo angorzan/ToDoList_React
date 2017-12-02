@@ -1,0 +1,10 @@
+Stwórz aplikację umożliwiającą dodawanie zadań wraz z mozliwością usuwania ich i przenoszenia do osobnej listy ze statusem 'done'.
+
+Na stronie powinien znajdować się formularz z polem tekstowym (Name) i buttonem (Add) oraz dwie listy 'TO DO TASKS' i 'DONE TASKS'.
+Po dodaniu taska za pomocą buttona 'Add' powinien pojawić się on w liście 'TO DO TASKS' wraz z dwoma przyciskami 'REMOVE' i 'DONE'.
+Przycisk 'REMOVE' usuwa task, natomiast 'DONE' przenosi dany task z listy 'TO DO TASKS' do listy 'DONE TASKS'.
+Po przeniesieniu, przy każdym tasku w liście 'DONE TASKS' powinien widoczny być tylko jeden przycisk 'REMOVE' umożliwający jego usunięcie.
+
+Jako zadanie dodatkowe stwórz routing do powyższej aplikacji.
+Na stronie głównej '/' powinien znajdować się formularz z linkami do obu list,
+a podstrony '/todo' i '/done' powinny wyśiwetlać odpowiednio listy 'TO DO TASKS' i 'DONE TASKS'.
