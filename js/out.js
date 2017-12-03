@@ -607,12 +607,11 @@ document.addEventListener('DOMContentLoaded', function () {
             _this2.handleClickAdd = function () {
                 console.log('Task added');
                 console.log('New task: ' + _this2.state.newtask);
-                _this2.state.push(_this2.state.newtask);
+                _this2.props.addTask(_this2.state.newtask);
             };
 
             _this2.state = {
-                newtask: '',
-                tasks_todo: []
+                newtask: ''
 
             };
             return _this2;
@@ -622,6 +621,7 @@ document.addEventListener('DOMContentLoaded', function () {
             key: 'render',
             value: function render() {
                 console.log('Render input');
+
                 return _react2.default.createElement(
                     'div',
                     null,
@@ -656,18 +656,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var _this3 = _possibleConstructorReturn(this, (TasksToDo.__proto__ || Object.getPrototypeOf(TasksToDo)).call(this, props));
 
-            _this3.handleClick2 = function () {
+            _this3.handleClickToRemove = function () {
                 console.log('Task removed');
+                _this3.props.removeTask(_this3.props.tasksTodo);
             };
 
-            _this3.handleClick3 = function () {
+            _this3.handleClickToComplete = function () {
                 console.log('Task done');
             };
 
-            _this3.state = {
-
-                tasks_todo: []
-            };
             return _this3;
         }
 
@@ -676,27 +673,22 @@ document.addEventListener('DOMContentLoaded', function () {
             value: function render() {
                 var _this4 = this;
 
-                console.log('Tasks to do: ' + this.state.tasks_todo);
-                var list_tasks_todo = this.state.tasks_todo.map(function (item) {
+                console.log('Tasks to do: ' + this.props.tasksTodo);
+
+                var ListOfToDo = this.props.tasksTodo.map(function (item, i) {
                     return _react2.default.createElement(
-                        'div',
-                        null,
+                        'li',
+                        { key: i },
+                        item,
                         _react2.default.createElement(
-                            'li',
-                            { onClick: function onClick(e) {
-                                    return _this4.moveItem(e);
-                                } },
-                            item
+                            'button',
+                            { className: 'removeTaskButton btn btn-danger', onClick: _this4.handleClickToRemove },
+                            'Remove '
                         ),
                         _react2.default.createElement(
                             'button',
-                            { className: 'removeTaskButton btn btn-danger', onClick: _this4.handleClick2 },
-                            'Remove'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'addTaskButton btn btn-warning', onClick: _this4.handleClick3 },
-                            'Done'
+                            { className: 'addTaskButton btn btn-warning', onClick: _this4.handleClickToComplete },
+                            'Done '
                         )
                     );
                 });
@@ -717,7 +709,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             _react2.default.createElement(
                                 'ul',
                                 null,
-                                list_tasks_todo
+                                ListOfToDo
                             )
                         )
                     )
@@ -771,7 +763,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 _react2.default.createElement(
                                     'button',
                                     { className: 'removeTaskButton btn btn-success', onClick: this.handleClick2 },
-                                    'Remove'
+                                    ' Remove '
                                 )
                             )
                         )
@@ -786,10 +778,34 @@ document.addEventListener('DOMContentLoaded', function () {
     var ToDoList = function (_React$Component5) {
         _inherits(ToDoList, _React$Component5);
 
-        function ToDoList() {
+        function ToDoList(props) {
             _classCallCheck(this, ToDoList);
 
-            return _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).apply(this, arguments));
+            var _this6 = _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).call(this, props));
+
+            _this6.state = {
+
+                tasksTodo: []
+            };
+            _this6.addTask = function (task) {
+                console.log('ToDoList received task: ' + task);
+                _this6.state.tasksTodo.push(task);
+                _this6.setState({
+
+                    tasksTodo: _this6.state.tasksTodo
+                });
+            };
+            _this6.removeTask = function (task) {
+                console.log('ToDoList received task to remove: ' + task);
+
+                _this6.setState({
+
+                    tasksTodo: _this6.state.tasksTodo.filter(function (item) {
+                        return item !== task;
+                    })
+                });
+            };
+            return _this6;
         }
 
         _createClass(ToDoList, [{
@@ -799,9 +815,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return _react2.default.createElement(
                     'div',
                     { className: 'form-group' },
-                    _react2.default.createElement(TaksToAdd, null),
-                    _react2.default.createElement(TasksToDo, null),
-                    _react2.default.createElement(TasksDone, null)
+                    _react2.default.createElement(TaksToAdd, { addTask: this.addTask }),
+                    _react2.default.createElement(TasksToDo, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask }),
+                    _react2.default.createElement(TasksDone, { removeTask: this.removeTask })
                 );
             }
         }]);

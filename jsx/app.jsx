@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
             super(props);
             this.state = {
                 newtask: '',
-                tasks_todo: [],
 
             }
         }
@@ -29,11 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
         handleClickAdd = () => {
             console.log('Task added');
             console.log('New task: ' + this.state.newtask);
-            this.state.push(this.state.newtask);
+            this.props.addTask(this.state.newtask);
+
         };
 
         render() {
             console.log('Render input');
+
             return (
                 <div>
                     <div className="form-group">
@@ -47,34 +48,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
     class TasksToDo extends React.Component {
         constructor(props) {
             super(props);
-            this.state = {
 
-                tasks_todo: [],
-            }
         }
 
-        handleClick2 = () => {
+        handleClickToRemove = () => {
             console.log('Task removed');
+            this.props.removeTask(this.props.tasksTodo);
+
         };
-        handleClick3 = () => {
+        handleClickToComplete = () => {
             console.log('Task done');
         };
 
         render() {
-            console.log('Tasks to do: ' + this.state.tasks_todo);
-            const list_tasks_todo = this.state.tasks_todo.map(item => {
-                return (<div>
-                    <li onClick={e => this.moveItem(e)}>
+            console.log('Tasks to do: ' + this.props.tasksTodo);
+
+            let ListOfToDo = this.props.tasksTodo.map((item, i) => {
+                return(
+                    <li key={i}>
                         {item}
+                    <button className="removeTaskButton btn btn-danger" onClick={this.handleClickToRemove}>Remove </button>
+                    <button className="addTaskButton btn btn-warning" onClick={this.handleClickToComplete}>Done </button>
                     </li>
-                    <button className="removeTaskButton btn btn-danger" onClick={this.handleClick2}>Remove
-                    </button>
-                    <button className="addTaskButton btn btn-warning" onClick={this.handleClick3}>Done</button>
-                </div>)
+            )
             });
             return (
                 <div>
@@ -83,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h1>To Do Tasks</h1>
                         <div className="form-group">
                             <ul>
-                                {list_tasks_todo}
+                                {ListOfToDo}
                             </ul>
                         </div>
                     </div>
@@ -115,9 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h1>Done Tasks</h1>
                         <div className="form-group">
                             <ul>
-                                <button className="removeTaskButton btn btn-success" onClick={this.handleClick2}>
-                                    Remove
-                                </button>
+                                <button className="removeTaskButton btn btn-success" onClick={this.handleClick2}> Remove </button>
                             </ul>
                         </div>
                     </div>
@@ -126,16 +123,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
     class ToDoList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+
+                tasksTodo: []
+            };
+            this.addTask = (task) => {
+                console.log('ToDoList received task: ' + task);
+                this.state.tasksTodo.push(task);
+                this.setState({
+
+                    tasksTodo: this.state.tasksTodo,
+                })
+            };
+            this.removeTask = (task) => {
+                console.log('ToDoList received task to remove: ' + task);
+
+                this.setState({
+
+                    tasksTodo: this.state.tasksTodo.filter(item => item !== task)
+                })
+            }
+        }
+
         render() {
 
             return (
                 <div className="form-group">
 
-                    <TaksToAdd />
-                    <TasksToDo/>
-                    <TasksDone/>
+                    <TaksToAdd addTask={this.addTask} />
+                    <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}/>
+                    <TasksDone removeTask={this.removeTask}/>
                 </div>
             )
         }
