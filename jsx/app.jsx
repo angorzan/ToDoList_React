@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         render() {
 
             return (
-                <div>
+                <div className="form-group">
 
                     <TaksToAdd />
                     <TasksToDo/>
@@ -144,12 +144,12 @@ document.addEventListener('DOMContentLoaded', function () {
     class ToDoAll extends React.Component {
         render() {
             return (
-                <div>
-                    <div className="container task_to_add">
+
+                    <div className="container">
                         <ToDoListHeader/>
                         <ToDoList/>
                     </div>
-                </div>
+
             )
         }
     }
