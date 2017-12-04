@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
 
-        handleClickToRemove = () => {
+        handleClickToRemove = (e) => {
             console.log('Task removed');
-            this.props.removeTask(this.props.tasksTodo);
+            this.props.removeTask();
 
         };
         handleClickToComplete = () => {
@@ -66,14 +66,10 @@ document.addEventListener('DOMContentLoaded', function () {
         render() {
             console.log('Tasks to do: ' + this.props.tasksTodo);
 
-            let ListOfToDo = this.props.tasksTodo.map((item, i) => {
-                return(
-                    <li key={i}>
-                        {item}
-                    <button className="removeTaskButton btn btn-danger" onClick={this.handleClickToRemove}>Remove </button>
-                    <button className="addTaskButton btn btn-warning" onClick={this.handleClickToComplete}>Done </button>
-                    </li>
-            )
+            let ListOfToDo = this.props.tasksTodo.map((item) => {
+                return (
+                    <ToDoItem item={item} removeTask={this.props.removeTask}/>
+                )
             });
             return (
                 <div>
@@ -114,7 +110,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h1>Done Tasks</h1>
                         <div className="form-group">
                             <ul>
-                                <button className="removeTaskButton btn btn-success" onClick={this.handleClick2}> Remove </button>
+                                <button className="removeTaskButton btn btn-success" onClick={this.handleClick2}>
+                                    Remove
+                                </button>
                             </ul>
                         </div>
                     </div>
@@ -122,6 +120,29 @@ document.addEventListener('DOMContentLoaded', function () {
             )
         }
     }
+
+
+    class ToDoItem extends React.Component {
+
+        handleClickToRemove = (e) => {
+            console.log('Task removed');
+            this.props.removeTask();
+
+        };
+        handleClickToComplete = () => {
+            console.log('Task done');
+        };
+
+
+        render() {
+            return <li>
+                {this.props.item}
+                <button className="removeTaskButton btn btn-danger" onClick={this.handleClickToRemove}>Remove</button>
+                <button className="addTaskButton btn btn-warning" onClick={this.handleClickToComplete}>Done</button>
+            </li>
+        }
+    }
+
 
     class ToDoList extends React.Component {
         constructor(props) {
@@ -153,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return (
                 <div className="form-group">
 
-                    <TaksToAdd addTask={this.addTask} />
+                    <TaksToAdd addTask={this.addTask}/>
                     <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}/>
                     <TasksDone removeTask={this.removeTask}/>
                 </div>
@@ -165,10 +186,10 @@ document.addEventListener('DOMContentLoaded', function () {
         render() {
             return (
 
-                    <div className="container">
-                        <ToDoListHeader/>
-                        <ToDoList/>
-                    </div>
+                <div className="container">
+                    <ToDoListHeader/>
+                    <ToDoList/>
+                </div>
 
             )
         }

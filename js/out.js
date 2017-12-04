@@ -656,9 +656,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var _this3 = _possibleConstructorReturn(this, (TasksToDo.__proto__ || Object.getPrototypeOf(TasksToDo)).call(this, props));
 
-            _this3.handleClickToRemove = function () {
+            _this3.handleClickToRemove = function (e) {
                 console.log('Task removed');
-                _this3.props.removeTask(_this3.props.tasksTodo);
+                _this3.props.removeTask();
             };
 
             _this3.handleClickToComplete = function () {
@@ -675,22 +675,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 console.log('Tasks to do: ' + this.props.tasksTodo);
 
-                var ListOfToDo = this.props.tasksTodo.map(function (item, i) {
-                    return _react2.default.createElement(
-                        'li',
-                        { key: i },
-                        item,
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'removeTaskButton btn btn-danger', onClick: _this4.handleClickToRemove },
-                            'Remove '
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'addTaskButton btn btn-warning', onClick: _this4.handleClickToComplete },
-                            'Done '
-                        )
-                    );
+                var ListOfToDo = this.props.tasksTodo.map(function (item) {
+                    return _react2.default.createElement(ToDoItem, { item: item, removeTask: _this4.props.removeTask });
                 });
                 return _react2.default.createElement(
                     'div',
@@ -763,7 +749,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 _react2.default.createElement(
                                     'button',
                                     { className: 'removeTaskButton btn btn-success', onClick: this.handleClick2 },
-                                    ' Remove '
+                                    'Remove'
                                 )
                             )
                         )
@@ -775,37 +761,83 @@ document.addEventListener('DOMContentLoaded', function () {
         return TasksDone;
     }(_react2.default.Component);
 
-    var ToDoList = function (_React$Component5) {
-        _inherits(ToDoList, _React$Component5);
+    var ToDoItem = function (_React$Component5) {
+        _inherits(ToDoItem, _React$Component5);
+
+        function ToDoItem() {
+            var _ref;
+
+            var _temp, _this6, _ret;
+
+            _classCallCheck(this, ToDoItem);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this6 = _possibleConstructorReturn(this, (_ref = ToDoItem.__proto__ || Object.getPrototypeOf(ToDoItem)).call.apply(_ref, [this].concat(args))), _this6), _this6.handleClickToRemove = function (e) {
+                console.log('Task removed');
+                _this6.props.removeTask();
+            }, _this6.handleClickToComplete = function () {
+                console.log('Task done');
+            }, _temp), _possibleConstructorReturn(_this6, _ret);
+        }
+
+        _createClass(ToDoItem, [{
+            key: 'render',
+            value: function render() {
+                return _react2.default.createElement(
+                    'li',
+                    null,
+                    this.props.item,
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'removeTaskButton btn btn-danger', onClick: this.handleClickToRemove },
+                        'Remove'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'addTaskButton btn btn-warning', onClick: this.handleClickToComplete },
+                        'Done'
+                    )
+                );
+            }
+        }]);
+
+        return ToDoItem;
+    }(_react2.default.Component);
+
+    var ToDoList = function (_React$Component6) {
+        _inherits(ToDoList, _React$Component6);
 
         function ToDoList(props) {
             _classCallCheck(this, ToDoList);
 
-            var _this6 = _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).call(this, props));
+            var _this7 = _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).call(this, props));
 
-            _this6.state = {
+            _this7.state = {
 
                 tasksTodo: []
             };
-            _this6.addTask = function (task) {
+            _this7.addTask = function (task) {
                 console.log('ToDoList received task: ' + task);
-                _this6.state.tasksTodo.push(task);
-                _this6.setState({
+                _this7.state.tasksTodo.push(task);
+                _this7.setState({
 
-                    tasksTodo: _this6.state.tasksTodo
+                    tasksTodo: _this7.state.tasksTodo
                 });
             };
-            _this6.removeTask = function (task) {
+            _this7.removeTask = function (task) {
                 console.log('ToDoList received task to remove: ' + task);
 
-                _this6.setState({
+                _this7.setState({
 
-                    tasksTodo: _this6.state.tasksTodo.filter(function (item) {
+                    tasksTodo: _this7.state.tasksTodo.filter(function (item) {
                         return item !== task;
                     })
                 });
             };
-            return _this6;
+            return _this7;
         }
 
         _createClass(ToDoList, [{
@@ -825,8 +857,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return ToDoList;
     }(_react2.default.Component);
 
-    var ToDoAll = function (_React$Component6) {
-        _inherits(ToDoAll, _React$Component6);
+    var ToDoAll = function (_React$Component7) {
+        _inherits(ToDoAll, _React$Component7);
 
         function ToDoAll() {
             _classCallCheck(this, ToDoAll);
@@ -849,8 +881,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return ToDoAll;
     }(_react2.default.Component);
 
-    var App = function (_React$Component7) {
-        _inherits(App, _React$Component7);
+    var App = function (_React$Component8) {
+        _inherits(App, _React$Component8);
 
         function App() {
             _classCallCheck(this, App);
