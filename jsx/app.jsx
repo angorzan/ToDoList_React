@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         render() {
-            console.log('Tasks done: ' + this.props.tasksTodo);
-            const listOfDone = this.props.tasksTodo.map((item, i) => {
+            console.log('Tasks done: ' + this.props.tasksDone);
+            const listOfDone = this.props.tasksDone.map((item, i) => {
                 return (
                     <DoneItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
                 )
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <TaksToAdd addTask={this.addTask}/>
                     <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}
                                completeTask={this.completeTask}/>
-                    <TasksDone tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}/>
+                    <TasksDone tasksDone={this.state.tasksDone} removeTask={this.removeTask}/>
                 </div>
             )
         }

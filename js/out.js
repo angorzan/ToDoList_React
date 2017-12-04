@@ -710,8 +710,8 @@ document.addEventListener('DOMContentLoaded', function () {
             value: function render() {
                 var _this6 = this;
 
-                console.log('Tasks done: ' + this.props.tasksTodo);
-                var listOfDone = this.props.tasksTodo.map(function (item, i) {
+                console.log('Tasks done: ' + this.props.tasksDone);
+                var listOfDone = this.props.tasksDone.map(function (item, i) {
                     return _react2.default.createElement(DoneItem, { item: item, key: i, index: i, removeTask: _this6.props.removeTask });
                 });
                 return _react2.default.createElement(
@@ -877,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     _react2.default.createElement(TaksToAdd, { addTask: this.addTask }),
                     _react2.default.createElement(TasksToDo, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask,
                         completeTask: this.completeTask }),
-                    _react2.default.createElement(TasksDone, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask })
+                    _react2.default.createElement(TasksDone, { tasksDone: this.state.tasksDone, removeTask: this.removeTask })
                 );
             }
         }]);
