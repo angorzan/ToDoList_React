@@ -665,7 +665,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Tasks to do: ' + this.props.tasksTodo);
 
                 var listOfToDo = this.props.tasksTodo.map(function (item, i) {
-                    return _react2.default.createElement(ToDoItem, { item: item, key: i, index: i, removeTask: _this4.props.removeTask });
+                    return _react2.default.createElement(ToDoItem, { item: item, key: i, index: i, removeTask: _this4.props.removeTask,
+                        completeTask: _this4.props.completeTask });
                 });
                 return _react2.default.createElement(
                     'div',
@@ -699,25 +700,20 @@ document.addEventListener('DOMContentLoaded', function () {
         _inherits(TasksDone, _React$Component4);
 
         function TasksDone() {
-            var _ref;
-
-            var _temp, _this5, _ret;
-
             _classCallCheck(this, TasksDone);
 
-            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-                args[_key] = arguments[_key];
-            }
-
-            return _ret = (_temp = (_this5 = _possibleConstructorReturn(this, (_ref = TasksDone.__proto__ || Object.getPrototypeOf(TasksDone)).call.apply(_ref, [this].concat(args))), _this5), _this5.handleClick2 = function () {
-                console.log('Task removed');
-            }, _temp), _possibleConstructorReturn(_this5, _ret);
+            return _possibleConstructorReturn(this, (TasksDone.__proto__ || Object.getPrototypeOf(TasksDone)).apply(this, arguments));
         }
 
         _createClass(TasksDone, [{
             key: 'render',
             value: function render() {
+                var _this6 = this;
 
+                console.log('Tasks done: ' + this.props.tasksTodo);
+                var listOfDone = this.props.tasksTodo.map(function (item, i) {
+                    return _react2.default.createElement(ToDoItem, { item: item, key: i, index: i, removeTask: _this6.props.removeTask });
+                });
                 return _react2.default.createElement(
                     'div',
                     null,
@@ -735,11 +731,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             _react2.default.createElement(
                                 'ul',
                                 null,
-                                _react2.default.createElement(
-                                    'button',
-                                    { className: 'removeTaskButton btn btn-success', onClick: this.handleClick2 },
-                                    'Remove'
-                                )
+                                listOfDone
                             )
                         )
                     )
@@ -754,23 +746,23 @@ document.addEventListener('DOMContentLoaded', function () {
         _inherits(ToDoItem, _React$Component5);
 
         function ToDoItem() {
-            var _ref2;
+            var _ref;
 
-            var _temp2, _this6, _ret2;
+            var _temp, _this7, _ret;
 
             _classCallCheck(this, ToDoItem);
 
-            for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-                args[_key2] = arguments[_key2];
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
             }
 
-            return _ret2 = (_temp2 = (_this6 = _possibleConstructorReturn(this, (_ref2 = ToDoItem.__proto__ || Object.getPrototypeOf(ToDoItem)).call.apply(_ref2, [this].concat(args))), _this6), _this6.handleClickToRemove = function () {
+            return _ret = (_temp = (_this7 = _possibleConstructorReturn(this, (_ref = ToDoItem.__proto__ || Object.getPrototypeOf(ToDoItem)).call.apply(_ref, [this].concat(args))), _this7), _this7.handleClickToRemove = function () {
                 console.log('Task removed');
-                _this6.props.removeTask(_this6.props.index);
-            }, _this6.handleClickToComplete = function () {
+                _this7.props.removeTask(_this7.props.index);
+            }, _this7.handleClickToComplete = function () {
                 console.log('Task done');
-                _this6.props.completeTask(_this6.props.index);
-            }, _temp2), _possibleConstructorReturn(_this6, _ret2);
+                _this7.props.completeTask(_this7.props.index);
+            }, _temp), _possibleConstructorReturn(_this7, _ret);
         }
 
         _createClass(ToDoItem, [{
@@ -803,34 +795,34 @@ document.addEventListener('DOMContentLoaded', function () {
         function ToDoList(props) {
             _classCallCheck(this, ToDoList);
 
-            var _this7 = _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).call(this, props));
+            var _this8 = _possibleConstructorReturn(this, (ToDoList.__proto__ || Object.getPrototypeOf(ToDoList)).call(this, props));
 
-            _this7.state = {
+            _this8.state = {
 
                 tasksTodo: []
             };
-            _this7.addTask = function (task) {
+            _this8.addTask = function (task) {
                 console.log('ToDoList received task: ' + task);
-                _this7.state.tasksTodo.push(task);
-                _this7.setState({
+                _this8.state.tasksTodo.push(task);
+                _this8.setState({
 
-                    tasksTodo: _this7.state.tasksTodo
+                    tasksTodo: _this8.state.tasksTodo
                 });
             };
-            _this7.removeTask = function (key) {
-                console.log('ToDoList received task to remove: ' + _this7.state.tasksTodo.splice(key, 1));
-                _this7.setState({
-                    tasksTodo: _this7.state.tasksTodo
+            _this8.removeTask = function (key) {
+                console.log('ToDoList received task to remove: ' + _this8.state.tasksTodo.splice(key, 1));
+                _this8.setState({
+                    tasksTodo: _this8.state.tasksTodo
                 });
             };
-            _this7.completeTask = function (key) {
-                var task = _this7.state.tasksTodo.splice(key, 1);
+            _this8.completeTask = function (key) {
+                var task = _this8.state.tasksTodo.splice(key, 1);
                 console.log('ToDoList received task to complete: ' + task);
-                _this7.setState({
-                    tasksTodo: _this7.state.tasksTodo
+                _this8.setState({
+                    tasksTodo: _this8.state.tasksTodo
                 });
             };
-            return _this7;
+            return _this8;
         }
 
         _createClass(ToDoList, [{
@@ -841,8 +833,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     'div',
                     { className: 'form-group' },
                     _react2.default.createElement(TaksToAdd, { addTask: this.addTask }),
-                    _react2.default.createElement(TasksToDo, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask, completeTask: this.completeTask }),
-                    _react2.default.createElement(TasksDone, { removeTask: this.removeTask })
+                    _react2.default.createElement(TasksToDo, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask,
+                        completeTask: this.completeTask }),
+                    _react2.default.createElement(TasksDone, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask })
                 );
             }
         }]);

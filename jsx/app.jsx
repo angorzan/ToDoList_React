@@ -54,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const listOfToDo = this.props.tasksTodo.map((item, i) => {
                 return (
-                    <ToDoItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
+                    <ToDoItem item={item} key={i} index={i} removeTask={this.props.removeTask}
+                              completeTask={this.props.completeTask}/>
                 )
             });
             return (
@@ -76,22 +77,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     class TasksDone extends React.Component {
 
-        handleClick2 = () => {
-            console.log('Task removed');
-        };
 
         render() {
-
+            console.log('Tasks done: ' + this.props.tasksTodo);
+            const listOfDone = this.props.tasksTodo.map((item, i) => {
+                return (
+                    <ToDoItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
+                )
+            });
             return (
                 <div>
-
                     <div className="container tasks_done">
                         <h1>Done Tasks</h1>
                         <div className="form-group">
                             <ul>
-                                <button className="removeTaskButton btn btn-success" onClick={this.handleClick2}>
-                                    Remove
-                                </button>
+                                {listOfDone}
                             </ul>
                         </div>
                     </div>
@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Task done');
             this.props.completeTask(this.props.index);
         };
+
         render() {
             return <li>
                 {this.props.item}
@@ -158,8 +159,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div className="form-group">
 
                     <TaksToAdd addTask={this.addTask}/>
-                    <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask} completeTask={this.completeTask}/>
-                    <TasksDone removeTask={this.removeTask}/>
+                    <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}
+                               completeTask={this.completeTask}/>
+                    <TasksDone tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}/>
                 </div>
             )
         }
