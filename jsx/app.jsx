@@ -49,11 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     class TasksToDo extends React.Component {
-        constructor(props) {
-            super(props);
-
-        }
-
         render() {
             console.log('Tasks to do: ' + this.props.tasksTodo);
 
@@ -80,13 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     class TasksDone extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-
-                tasks_done: []
-            }
-        }
 
         handleClick2 = () => {
             console.log('Task removed');
@@ -122,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         handleClickToComplete = () => {
             console.log('Task done');
+            this.props.completeTask(this.props.index);
         };
         render() {
             return <li>
@@ -153,6 +142,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.setState({
                     tasksTodo: this.state.tasksTodo,
                 });
+            };
+            this.completeTask = (key) => {
+                const task = this.state.tasksTodo.splice(key, 1);
+                console.log('ToDoList received task to complete: ' + task);
+                this.setState({
+                    tasksTodo: this.state.tasksTodo,
+                });
             }
         }
 
@@ -162,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div className="form-group">
 
                     <TaksToAdd addTask={this.addTask}/>
-                    <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}/>
+                    <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask} completeTask={this.completeTask}/>
                     <TasksDone removeTask={this.removeTask}/>
                 </div>
             )
