@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Tasks done: ' + this.props.tasksTodo);
             const listOfDone = this.props.tasksTodo.map((item, i) => {
                 return (
-                    <ToDoItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
+                    <DoneItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
                 )
             });
             return (
@@ -97,6 +97,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 </div>
             )
+        }
+    }
+
+    class DoneItem extends React.Component {
+        handleClickToRemove = () => {
+            console.log('Task removed');
+            this.props.removeTask(this.props.index);
+        };
+
+        render() {
+            return <li>
+                {this.props.item}
+                <button className="removeTaskButton btn btn-danger" onClick={this.handleClickToRemove}>Remove</button>
+                   </li>
         }
     }
 
