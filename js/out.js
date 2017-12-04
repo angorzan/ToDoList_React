@@ -818,7 +818,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     ),
                     _react2.default.createElement(
                         'button',
-                        { className: 'addTaskButton btn btn-warning', onClick: this.handleClickToComplete },
+                        { className: 'addTaskButton btn btn-success', onClick: this.handleClickToComplete },
                         'Done'
                     )
                 );

@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return <li>
                 {this.props.item}
                 <button className="removeTaskButton btn btn-danger" onClick={this.handleClickToRemove}>Remove</button>
-                <button className="addTaskButton btn btn-warning" onClick={this.handleClickToComplete}>Done</button>
+                <button className="addTaskButton btn btn-success" onClick={this.handleClickToComplete}>Done</button>
             </li>
         }
     }
