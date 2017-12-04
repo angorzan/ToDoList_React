@@ -128,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
             super(props);
             this.state = {
 
-                tasksTodo: []
+                tasksTodo: [],
+                tasksDone: []
             };
             this.addTask = (task) => {
                 console.log('ToDoList received task: ' + task);
@@ -146,9 +147,11 @@ document.addEventListener('DOMContentLoaded', function () {
             };
             this.completeTask = (key) => {
                 const task = this.state.tasksTodo.splice(key, 1);
+                this.state.tasksDone.push(task);
                 console.log('ToDoList received task to complete: ' + task);
                 this.setState({
                     tasksTodo: this.state.tasksTodo,
+                    tasksDone: this.state.tasksDone
                 });
             }
         }
