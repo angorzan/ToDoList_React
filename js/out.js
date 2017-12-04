@@ -712,7 +712,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 console.log('Tasks done: ' + this.props.tasksDone);
                 var listOfDone = this.props.tasksDone.map(function (item, i) {
-                    return _react2.default.createElement(DoneItem, { item: item, key: i, index: i, removeTask: _this6.props.removeTask });
+                    return _react2.default.createElement(DoneItem, { item: item, key: i, index: i, removeDone: _this6.props.removeDone });
                 });
                 return _react2.default.createElement(
                     'div',
@@ -758,7 +758,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return _ret = (_temp = (_this7 = _possibleConstructorReturn(this, (_ref = DoneItem.__proto__ || Object.getPrototypeOf(DoneItem)).call.apply(_ref, [this].concat(args))), _this7), _this7.handleClickToRemove = function () {
                 console.log('Task removed');
-                _this7.props.removeTask(_this7.props.index);
+                _this7.props.removeDone(_this7.props.index);
             }, _temp), _possibleConstructorReturn(_this7, _ret);
         }
 
@@ -855,6 +855,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     tasksTodo: _this9.state.tasksTodo
                 });
             };
+            _this9.removeDone = function (key) {
+                console.log('ToDoList received done task to remove: ' + _this9.state.tasksDone.splice(key, 1));
+                _this9.setState({
+                    tasksDone: _this9.state.tasksDone
+                });
+            };
+
             _this9.completeTask = function (key) {
                 var task = _this9.state.tasksTodo.splice(key, 1);
                 _this9.state.tasksDone.push(task);
@@ -877,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     _react2.default.createElement(TaksToAdd, { addTask: this.addTask }),
                     _react2.default.createElement(TasksToDo, { tasksTodo: this.state.tasksTodo, removeTask: this.removeTask,
                         completeTask: this.completeTask }),
-                    _react2.default.createElement(TasksDone, { tasksDone: this.state.tasksDone, removeTask: this.removeTask })
+                    _react2.default.createElement(TasksDone, { tasksDone: this.state.tasksDone, removeDone: this.removeDone })
                 );
             }
         }]);

@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Tasks done: ' + this.props.tasksDone);
             const listOfDone = this.props.tasksDone.map((item, i) => {
                 return (
-                    <DoneItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
+                    <DoneItem item={item} key={i} index={i} removeDone={this.props.removeDone}/>
                 )
             });
             return (
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     class DoneItem extends React.Component {
         handleClickToRemove = () => {
             console.log('Task removed');
-            this.props.removeTask(this.props.index);
+            this.props.removeDone(this.props.index);
         };
 
         render() {
@@ -159,6 +159,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     tasksTodo: this.state.tasksTodo,
                 });
             };
+            this.removeDone = (key) => {
+                console.log('ToDoList received done task to remove: ' + this.state.tasksDone.splice(key, 1));
+                this.setState({
+                    tasksDone: this.state.tasksDone,
+                });
+            };
+
+
             this.completeTask = (key) => {
                 const task = this.state.tasksTodo.splice(key, 1);
                 this.state.tasksDone.push(task);
@@ -178,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <TaksToAdd addTask={this.addTask}/>
                     <TasksToDo tasksTodo={this.state.tasksTodo} removeTask={this.removeTask}
                                completeTask={this.completeTask}/>
-                    <TasksDone tasksDone={this.state.tasksDone} removeTask={this.removeTask}/>
+                    <TasksDone tasksDone={this.state.tasksDone} removeDone={this.removeDone}/>
                 </div>
             )
         }
