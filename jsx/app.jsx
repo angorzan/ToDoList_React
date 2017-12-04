@@ -57,9 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
         render() {
             console.log('Tasks to do: ' + this.props.tasksTodo);
 
-            let ListOfToDo = this.props.tasksTodo.map((item) => {
+            const listOfToDo = this.props.tasksTodo.map((item, i) => {
                 return (
-                    <ToDoItem item={item} removeTask={this.props.removeTask}/>
+                    <ToDoItem item={item} key={i} index={i} removeTask={this.props.removeTask}/>
                 )
             });
             return (
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h1>To Do Tasks</h1>
                         <div className="form-group">
                             <ul>
-                                {ListOfToDo}
+                                {listOfToDo}
                             </ul>
                         </div>
                     </div>
@@ -115,9 +115,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     class ToDoItem extends React.Component {
 
-        handleClickToRemove = (e) => {
+        handleClickToRemove = () => {
             console.log('Task removed');
-            this.props.removeTask(this.props.item);
+            this.props.removeTask(this.props.index);
 
         };
         handleClickToComplete = () => {
@@ -148,13 +148,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     tasksTodo: this.state.tasksTodo,
                 })
             };
-            this.removeTask = (task) => {
-                console.log('ToDoList received task to remove: ' + task);
-
+            this.removeTask = (key) => {
+                console.log('ToDoList received task to remove: ' + this.state.tasksTodo.splice(key, 1));
                 this.setState({
-
-                    tasksTodo: this.state.tasksTodo.filter(item => item !== task)
-                })
+                    tasksTodo: this.state.tasksTodo,
+                });
             }
         }
 
