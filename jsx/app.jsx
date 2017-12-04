@@ -54,15 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
 
-        handleClickToRemove = (e) => {
-            console.log('Task removed');
-            this.props.removeTask();
-
-        };
-        handleClickToComplete = () => {
-            console.log('Task done');
-        };
-
         render() {
             console.log('Tasks to do: ' + this.props.tasksTodo);
 
@@ -126,14 +117,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         handleClickToRemove = (e) => {
             console.log('Task removed');
-            this.props.removeTask();
+            this.props.removeTask(this.props.item);
 
         };
         handleClickToComplete = () => {
             console.log('Task done');
         };
-
-
         render() {
             return <li>
                 {this.props.item}
